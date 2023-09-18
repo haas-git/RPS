@@ -3,6 +3,22 @@
 const rockPaperScissors = ["ROCK", "PAPER", "SCISSORS"];
 
 //create a function for the computer to get a random result from an array to play against user input
+const rockButton = document.querySelector('#rockBtn');
+const paperButton = document.querySelector('#paperBtn');
+const scissorsButton = document.querySelector('#scissorsBtn');
+
+rockButton.addEventListener('click', () => {
+  playRound("rock");
+});
+
+paperButton.addEventListener('click', () => {
+  playRound("paper");
+});
+
+scissorsButton.addEventListener('click', () => {
+  playRound("scissors");
+});
+
 
 
 
@@ -19,8 +35,7 @@ function compSelection () {
 
 
 
-function playRound() {
-  let playerSelection = prompt("Enter your choice: Rock, Paper or Scissors");
+function playRound(playerSelection) {
   const computerSelection = compSelection();
   playerSelection = playerSelection.toUpperCase();
   
@@ -68,42 +83,8 @@ function game(play) {
     } else if (result == "loss"){
     loss++;
     }
-  
-  result = play();
-  if(result == "tie"){
-    tie++;
-  } else if (result == "win"){
-    win++;
-    } else if (result == "loss"){
-    loss++;
-    }
-  
-  result = play();
-  if(result == "tie"){
-    tie++;
-  } else if (result == "win"){
-    win++;
-    } else if (result == "loss"){
-    loss++;
-    }
-  
-  result = play();
-  if(result == "tie"){
-    tie++;
-  } else if (result == "win"){
-    win++;
-    } else if (result == "loss"){
-    loss++;
-    }
-  
-  result = play();
-  if(result == "tie"){
-    tie++;
-  } else if (result == "win"){
-    win++;
-    } else if (result == "loss"){
-    loss++;
-    }
+    
+
 
   console.log(`You finished with ${win} wins, ${tie} tie, and ${loss} losses`)
 }
@@ -112,7 +93,9 @@ function tieMessage(playerSelection, computerSelection){
   return `Its a tie! ${playerSelection} and ${computerSelection} cancel out!`
 }
 
-game(playRound)
+//game(playRound);
+
+
 
 
 

@@ -2,3 +2,12 @@ html {
   height: 100%;
   width: 100%;
 }
+
+#rockBtn {
+  color: red;
+  text-decoration: wavy;
+}
+
+button {
+   padding: 40px;
+}
