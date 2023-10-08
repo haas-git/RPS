@@ -6,18 +6,40 @@ const rockPaperScissors = ["ROCK", "PAPER", "SCISSORS"];
 const rockButton = document.querySelector('#rockBtn');
 const paperButton = document.querySelector('#paperBtn');
 const scissorsButton = document.querySelector('#scissorsBtn');
+let wins = 0;
+let losses = 0;
+let ties = 0;
+let scoreP = document.createElement('p');
+const container = document.querySelector('#scoreContainer');
+const resultP = document.createElement('p');
+scoreP.innerHTML = `The score is ${wins} - ${ties} - ${losses}`
 
 rockButton.addEventListener('click', () => {
   playRound("rock");
+  scoreP.innerHTML = `The score is ${wins} - ${ties} - ${losses}`;  
+  container.appendChild(scoreP);
+  gameOver();
+  
 });
 
 paperButton.addEventListener('click', () => {
   playRound("paper");
+  scoreP.innerHTML = `The score is ${wins} - ${ties} - ${losses}`;
+  container.appendChild(scoreP);
+  gameOver();
 });
 
 scissorsButton.addEventListener('click', () => {
   playRound("scissors");
+  scoreP.innerHTML = `The score is ${wins} - ${ties} - ${losses}`;
+  container.appendChild(scoreP);
+  gameOver();
 });
+
+
+
+
+
 
 
 
@@ -29,6 +51,13 @@ scissorsButton.addEventListener('click', () => {
 //compare playerSelection with the computerSelection and return a result stating whether the player won or lost and the choice of the computer stated in a string. ex. "you lose _____ beats _____" or "You won! ______ beats ______"
 
 // playRound function needs examples for wins and losses. Tie is taken care of
+
+
+//--------Functions--------------
+
+
+
+
 function compSelection () {
   return rockPaperScissors[(Math.floor(Math.random() * rockPaperScissors.length))];
 }
@@ -39,41 +68,58 @@ function playRound(playerSelection) {
   const computerSelection = compSelection();
   playerSelection = playerSelection.toUpperCase();
   
+  
+
+
+  
   if(playerSelection == computerSelection) {
-            console.log(tieMessage(playerSelection, computerSelection));
+            resultP.textContent = tieMessage(playerSelection, computerSelection);
+            container.appendChild(resultP);
+            ++ties;
             return "tie";
   } else if (playerSelection == "ROCK"){
           if (computerSelection == "PAPER") {
-            console.log("You lose. Paper beats rock.")
+            resultP.textContent = "You lose. Paper beats rock."
+            ++losses;
+            container.appendChild(resultP);
             return "loss";
           } else if (computerSelection == "SCISSORS"){
-            console.log("You win. Rock beats Scissors");
+            resultP.textContent = "You win. Rock beats Scissors"
+            ++wins;
+            container.appendChild(resultP);
             return "win";
     }
   } else if (playerSelection == "PAPER"){
           if (computerSelection == "SCISSORS") {
-            console.log("You lose. Scissors beats paper.")
+            resultP.textContent = "You lose. Scissors beats paper."
+            container.appendChild(resultP);
+            losses++;
             return "loss";
           } else if(computerSelection == "ROCK") {
-            console.log("You win. Paper beats Rock")
+            resultP.textContent = "You win. Paper beats Rock"
+            container.appendChild(resultP);
+            wins++;
             return "win";
     }
   } else if (playerSelection == "SCISSORS") {
           if(computerSelection == "ROCK") {
-            console.log("You lose. Rock beats Scissors")
+            resultP.textContent = "You lose. Rock beats Scissors"
+            container.appendChild(resultP);
+            losses++;
             return "loss";
           } else if(computerSelection == "PAPER") {
-            console.log("You win. Scissors beats paper.")
+            resultP.textContent = "You win. Scissors beats paper."
+            container.appendChild(resultP);
+            wins++;
             return "win";
           }
+
   }
+  
 }
 
 
 function game(play) {
-  let win = 0;
-  let loss = 0;
-  let tie = 0;
   
   let result = play();
   if(result == "tie"){
@@ -93,7 +139,21 @@ function tieMessage(playerSelection, computerSelection){
   return `Its a tie! ${playerSelection} and ${computerSelection} cancel out!`
 }
 
-//game(playRound);
+function gameOver() {
+  if(wins >= 10) {
+    resultP.textContent = "Game Over. You win!";
+    scoreP.textContent = "";
+    container.appendChild(scoreP);
+    container.appendChild(resultP);
+
+  }else if (losses >= 10) {
+    resultP.textContent = "Game Over. You Lose!";
+    scoreP.textContent = "";
+    container.appendChild(scoreP);
+    container.appendChild(resultP);
+    }
+  };
+
 
 
 
